@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dooooom</title>
+        <link rel="stylesheet" href="./css/style.css">
+        <link rel="icon" href="./assets/logo.jpg">
+    </head>
+    <body>
+        <div id="info">
+            <div class="info_texts">
+                <h2 id="health">Health : 100</h2>
+                <h2 id="ammo">Ammo : 10/20</h2>
+                <h2 id="kills">Kills : 0</h2>
+            </div>
+        </div>
+        <div class="hud">
+            <div id="weapon"></div>
+        </div>
+        <div class="main_menu">
+            <img class="logo" src="./assets/logo.jpg" alt="logo" id="logo">
+            <h2>Click to close the menu</h2>
+            <button type="submit" id="resume">Resume</button>
+            <div id="Infos" class="tutorial">
+                <h2>Controls</h2>
+                <p>- Use the arrow keys to move around (Or `ZQSD`)</p>
+                <p>- Press your left mouse button to shoot</p>
+                <p>- Press `R` to reload the gun</p>
+                <p>- Use the mouse to look around</p>
+            </div>
+            <div id="settings" class="tutorial">
+                <script type="module">
+                    import * as settings from './js/settings.js';
+                    settings.displaySettings();
+                </script>
+            </div>
+        </div>
+        <script type="module" src="./js/main.js"></script>
+        <script src="./js/menu.js"></script>
+        <script src="./js/gun.js"></script>
+        <script src="./js/health.js"></script>
+    </body>
+</html>
