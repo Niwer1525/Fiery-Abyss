@@ -34,8 +34,5 @@ YES IT NEEDS OPTIMIZATION !!! + a lot of code improvements
 - This use the [Vite](https://vitejs.dev/) bundler
 - This use Node.js
 
-## Some screenshots
+## Some screenshots (+ video in screenshots/
 ![Main menu/Pause menu](screenshots/main_menu.png)
-
-### Made in the earliest stage
-<video controls src="screenshots/first_version.mp4" title="Title"></video>
