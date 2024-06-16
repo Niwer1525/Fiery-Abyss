@@ -4,7 +4,7 @@ import Stats from 'stats.js';
 import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 import * as settings from './settings.js';
 import * as world from './world.js';
-// import * as shader from './shader.js';
+import * as shader from './shader.js';
 
 let stats, camera, renderer, controls, raycaster, keys = {};
 
@@ -34,6 +34,7 @@ function init() {
     raycaster = new THREE.Raycaster();
 
     world.createScene(camera);
+    shader.initShaders(renderer, camera);
     renderScene();
 }
 
@@ -52,10 +53,11 @@ function renderScene() {
 
     /* Rendering (scene, post-process shaders) */
     renderer.render(world.scene, camera);
-    // shader.renderScene();
+    shader.renderShaders();
     
     handleAmmoText(); // Update ammo text
     handleHealthText(); // Update health text
+    document.getElementById('position').innerHTML = 'Position : ' + camera.position.x.toFixed(2) + ', ' + camera.position.y.toFixed(2) + ', ' + camera.position.z.toFixed(2);
 
     /* Debugging (stats) */
     if(settings.debugMode_stats) {

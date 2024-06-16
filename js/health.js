@@ -23,7 +23,7 @@ function damagePlayer(amount) {
     health -= amount;
     if(health <= 0) {
         health = 0;
-        alert('You died!');
+        alert('You are dead!');
         location.reload();
     }
 }

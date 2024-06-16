@@ -1,6 +1,7 @@
 # A small Doom-like made in Javascript and Three.js (Node.js)
 
-This is a small (made in ![Time spent](screenshots/time.png)) project I made for fun. It's a small 'Doom-like' (Not relly since I'm using 3D while Doom is a 2.5D) where you can move around, shoot and collect loots.
+This is a small project I made for fun. It's a small 'Doom-like' (Not relly since I'm using 3D while Doom is a 2.5D) where you can move around, shoot and collect loots.<br><br>
+[![wakatime](https://wakatime.com/badge/user/6e76cd44-0f28-4a63-8aa4-fdacc7db9439/project/37ed1597-117e-4f7b-a2f4-e5c8efc772af.svg)](https://wakatime.com/badge/user/6e76cd44-0f28-4a63-8aa4-fdacc7db9439/project/37ed1597-117e-4f7b-a2f4-e5c8efc772af)
 
 ## Features
 - 3D rendering
@@ -8,11 +9,11 @@ This is a small (made in ![Time spent](screenshots/time.png)) project I made for
 - Shooting and reloading (No damage to enemies yet)
 - Loots (Ammo, health, etc)
 - Config system
-- Decals (Bullet holes, blood, etc) -> Not implemented yet
-- Simple level design -> Not implemented yet
-- Simple AI (Enemies will follow you and try to kill you) -> Yes there is a cube that shoot at you (And damage you)
-- Spawn system (Loot/Ennemies) -> Not implemented yet
-- Post process shaders -> Not implemented yet
+- Simple level design
+- Post process shaders (Blood/Health)
+- Simple AI (Enemies will follow you and try to kill you) -> Yes there is enemies that shoot at you (And damage you)
+- Decals (Bullet holes, blood, etc) -> **Not implemented yet**
+- Spawn system (Loot/Enemies) -> **Not implemented yet**
 
 ## WARNING WARNING !
 YES IT NEEDS OPTIMIZATION !!! + a lot of code improvements
@@ -34,5 +35,5 @@ YES IT NEEDS OPTIMIZATION !!! + a lot of code improvements
 - This use the [Vite](https://vitejs.dev/) bundler
 - This use Node.js
 
-## Some screenshots (+ video in screenshots/
+## Some screenshots (+ video in screenshots/)
 ![Main menu/Pause menu](screenshots/main_menu.png)
