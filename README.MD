@@ -37,3 +37,6 @@ YES IT NEEDS OPTIMIZATION !!! + a lot of code improvements
 
 ## Some screenshots (+ video in screenshots/)
 ![Main menu/Pause menu](screenshots/main_menu.png)
+![Level design 1](screenshots/level_1.png)
+![Level design 2](screenshots/level_2.png)
+![Enemies](screenshots/enemy.png)

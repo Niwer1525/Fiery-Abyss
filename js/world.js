@@ -44,6 +44,13 @@ export function createScene(cam) {
     /* World itself */
     GLTFModelLoader.load('assets/world/main_world.glb', (gltf) => {
         const worldScale = 325;
+        gltf.scene.traverse(function (child) {
+            if (child.isMesh) {
+                // Add shadow for every sub objects (walls, floor, etc)
+                child.castShadow = true;
+                child.receiveShadow = true;
+            }
+        });
         worldMesh = gltf.scene;
         worldMesh.position.set(0, -5, 0);
         worldMesh.scale.set(worldScale, worldScale, worldScale);
@@ -53,31 +60,37 @@ export function createScene(cam) {
     });
 
     /* Lights */
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+    const dirLight = new THREE.DirectionalLight(0xffffff, Math.PI);
     dirLight.color.setHSL(0.1, 1, 0.95);
-    dirLight.position.set(25, 15, 10);
+    dirLight.position.set(-10, 15, 25);
     dirLight.position.multiplyScalar(30);
     dirLight.castShadow = true;
     
-    const d = 150;
+    // CONFIG THE LIGHT SIZE
+    const d = 500;
     dirLight.shadow.camera.left = - d;
     dirLight.shadow.camera.right = d;
     dirLight.shadow.camera.top = d;
     dirLight.shadow.camera.bottom = - d;
-    dirLight.shadow.camera.far = 3500;
-    dirLight.shadow.bias = - 0.0001;
+    dirLight.shadow.camera.near = 0.5;
+    dirLight.shadow.camera.far = 1500;
+
+    // Change shadows settings
+    dirLight.shadow.normalBias = 0.01;
+    dirLight.shadow.bias = -0.002;
+    dirLight.shadow.mapSize.width = dirLight.shadow.mapSize.height = 1024;
 
     lights.push(dirLight);
     scene.add(dirLight);
 
     /* Skybox */
     scene.background = new THREE.CubeTextureLoader().setPath('assets/sky/').load([
-        'arid_ft.jpg',
-        'arid_bk.jpg',
-        'arid_up.jpg',
-        'arid_dn.jpg',
-        'arid_rt.jpg',
-        'arid_if.jpg',
+        'arid_ft.jpg', // Front
+        'arid_bk.jpg', // Back
+        'arid_up.jpg', // Top
+        'arid_dn.jpg', // Bottom
+        'arid_rt.jpg', // Right
+        'arid_if.jpg', // Left
     ]);
 
     /* Fog */
@@ -98,32 +111,32 @@ export function createScene(cam) {
     createParticle(93, 312, ammoLoot);
 
     /* Enemies */
-    createEnemy(10, 0, 10); // TEST ENEMY
+    // createEnemy(10, 0, 10); // TEST ENEMY
 
-    // createEnemy(307, 0, -184);
-    // createEnemy(270, 0, -220);
-    // createEnemy(207, 0, -284);
-    // createEnemy(310, 0, -240);
-    // createEnemy(200, 0, 215);
-    // createEnemy(170, 0, 170);
-    // createEnemy(190, 0, 30);
-    // createEnemy(238, 0, 58);
-    // createEnemy(12, 0, 300);
-    // createEnemy(15, 0, 260);
-    // createEnemy(110, 0, 312);
-    // createEnemy(-295, 0, 10);
-    // createEnemy(-88, 0, 188);
-    // createEnemy(-172, 0, 15);
-    // createEnemy(-195, 0, -218);
-    // createEnemy(-42, 0, -306);
-    // createEnemy(-190, 0, -129);
-    // createEnemy(-222, 0, -230);
-    // createEnemy(-51, 0, -95);
-    // createEnemy(-130, 0, -7.45);
-    // createEnemy(-178, 0, -208);
-    // createEnemy(-100, 0, -185);
-    // createEnemy(200, 0, -225);
-    // createEnemy(88, 0, -248);
+    createEnemy(307, 0, -184);
+    createEnemy(270, 0, -220);
+    createEnemy(207, 0, -284);
+    createEnemy(310, 0, -240);
+    createEnemy(200, 0, 215);
+    createEnemy(170, 0, 170);
+    createEnemy(190, 0, 30);
+    createEnemy(238, 0, 58);
+    createEnemy(12, 0, 300);
+    createEnemy(15, 0, 260);
+    createEnemy(110, 0, 312);
+    createEnemy(-295, 0, 10);
+    createEnemy(-88, 0, 188);
+    createEnemy(-172, 0, 15);
+    createEnemy(-195, 0, -218);
+    createEnemy(-42, 0, -306);
+    createEnemy(-190, 0, -129);
+    createEnemy(-222, 0, -230);
+    createEnemy(-51, 0, -95);
+    createEnemy(-130, 0, -7.45);
+    createEnemy(-178, 0, -208);
+    createEnemy(-100, 0, -185);
+    createEnemy(200, 0, -225);
+    createEnemy(88, 0, -248);
 }
 
 function addDebugHelpers(lights) {
@@ -132,6 +145,7 @@ function addDebugHelpers(lights) {
         for(let i = 0; i < lights.length; i++) {
             if(lights[i].type === 'DirectionalLight') { // Directional light
                 const dirLightHelper = new THREE.DirectionalLightHelper(lights[i], 10);
+
                 const camHelper = new THREE.CameraHelper( lights[i].shadow.camera );
                 // const spotLightHelper = new THREE.SpotLightHelper(spotLight, 10);
                 helpers.push(dirLightHelper, camHelper);
