@@ -3,6 +3,7 @@ export let debugMode_other = false;
 export let debugMode_wireframe = false;
 export let debugMode_stats = false;
 export let debugMode_lights = false;
+export let debugMode_rays = false;
 
 /* Game settings */
 export let mouse_sensitivity = 0.002;
@@ -34,6 +35,9 @@ cookies.forEach(cookie => {
             break;
         case 'debugMode_lights':
             debugMode_lights = value === 'true';
+            break;
+        case 'debugMode_rays':
+            debugMode_rays = value === 'true';
             break;
     }
 });
@@ -73,6 +77,9 @@ function displayDebugModeSettings() {
         <label class="checkbox_label">Lights :
             <input type="checkbox" ${debugMode_lights ? 'checked' : ''} id="debug_lights">
         </label>
+        <label class="checkbox_label">Rays :
+            <input type="checkbox" ${debugMode_rays ? 'checked' : ''} id="debug_rays">
+        </label>
     `;
 }
 
@@ -85,6 +92,7 @@ export function saveSettings() {
     debugMode_wireframe = document.getElementById('debug_wireframe').checked;
     debugMode_stats = document.getElementById('debug_stats').checked;
     debugMode_lights = document.getElementById('debug_lights').checked;
+    debugMode_rays = document.getElementById('debug_rays').checked;
 
     // Save settings as cookies
     document.cookie = `mouse_sensitivity=${mouse_sensitivity}`;
@@ -94,4 +102,5 @@ export function saveSettings() {
     document.cookie = `debugMode_wireframe=${debugMode_wireframe}`;
     document.cookie = `debugMode_stats=${debugMode_stats}`;
     document.cookie = `debugMode_lights=${debugMode_lights}`;
+    document.cookie = `debugMode_rays=${debugMode_rays}`;
 }

@@ -111,8 +111,6 @@ export function createScene(cam) {
     createParticle(93, 312, ammoLoot);
 
     /* Enemies */
-    // createEnemy(10, 0, 10); // TEST ENEMY
-
     createEnemy(307, 0, -184);
     createEnemy(270, 0, -220);
     createEnemy(207, 0, -284);
@@ -146,7 +144,7 @@ function addDebugHelpers(lights) {
             if(lights[i].type === 'DirectionalLight') { // Directional light
                 const dirLightHelper = new THREE.DirectionalLightHelper(lights[i], 10);
 
-                const camHelper = new THREE.CameraHelper( lights[i].shadow.camera );
+                const camHelper = new THREE.CameraHelper(lights[i].shadow.camera);
                 // const spotLightHelper = new THREE.SpotLightHelper(spotLight, 10);
                 helpers.push(dirLightHelper, camHelper);
                 scene.add(dirLightHelper, camHelper);
@@ -214,13 +212,18 @@ export function handleWorld() {
 }
 
 function checkLineOfSight(position1, position2) {
-    const raycaster = new THREE.Raycaster();
     const direction = new THREE.Vector3().subVectors(position2, position1).normalize();
-
-    raycaster.set(position1, direction);
-    
+    const cameraDistance = position1.distanceTo(position2);
+    const raycaster = new THREE.Raycaster(position1, direction, 0, cameraDistance);
     const intersects = raycaster.intersectObjects(scene.children.filter(child => child === worldMesh));
-    // console.log(intersects);
+    
+    /* Debug mode */
+    if(settings.debugMode_rays) {
+        if(intersects.length !== 0) scene.add(new THREE.ArrowHelper(direction, position1, Math.abs(intersects[0].distance), 0xff0000, 0.2, 0.2));
+        else scene.add(new THREE.ArrowHelper(direction, position1, cameraDistance, 0xfff222, 0.2, 0.2));
+        console.log(intersects);
+    }
+
     return intersects.length === 0;
 }
 
@@ -236,11 +239,12 @@ function createEnemy(x, y, z) {
     setInterval(() => {
         if(isMenuOpen()) return; // Don't shoot if the menu is open
 
-        const canSeePlayer = checkLineOfSight(sprite.position, camera.position);
-        // if (!canSeePlayer) return; // Don't shoot if the player is not in sight
-
         if(utils.distance(sprite.position.x, sprite.position.z, camera.position.x, camera.position.z) > 100)
             return; // Don't shoot if the player is too far (100 meters away)
+
+        const canSeePlayer = checkLineOfSight(sprite.position.clone(), camera.position.clone());
+        if (!canSeePlayer) return; // Don't shoot if the player is not in sight
+
         shootFireball(sprite);
     }, 2500 + 500 * Math.random()); // Shoot a fireball every 3 seconds (plus a random delay)
 }
